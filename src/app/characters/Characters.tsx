@@ -19,7 +19,6 @@ export default function Characters ({peopleData}: CharactersProps) {
 
     return (
         <>
-            
             {results.map((person, index) => (
                 <div key={person.name} style={style}>
                     <button style={{width: '100%'}} onClick={() => {

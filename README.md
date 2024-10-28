@@ -1,4 +1,6 @@
 Contenxt: This is a next.js app using the latest canary and experimental dynamicIO ('use cache' directive)
+consult this documentation:
+https://nextjs.org/docs/canary/app/api-reference/directives/use-cache
 
 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
