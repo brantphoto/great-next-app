@@ -1,5 +1,6 @@
 'use cache'
 
+import { Suspense } from "react";
 import Characters from "./Characters";
 import PageTitle from "@/components/PageTitle";
 
@@ -9,17 +10,23 @@ export interface Character {
     mass: string;
 }
 
-interface CharacterApiResponse {
+export interface CharacterApiResponse {
     results: Character[];
 }
-export default async function GreetingsPage() {
+
+const fetchPeopleData = async () => {
     const people = await fetch("https://swapi.dev/api/people/");
-    const peopleData : CharacterApiResponse = await people.json();
+    return people.json();
+}
+export default async function GreetingsPage() {
+    const peopleData: Promise<CharacterApiResponse> = fetchPeopleData();
 
     return (
         <div className="container mx-auto">
             <PageTitle title="Characters" />
-            <Characters peopleData={peopleData.results} />
+            <Suspense fallback={<div>Loading...</div>}>
+                <Characters peopleData={peopleData} />
+            </Suspense>
         </div>
     )
 }

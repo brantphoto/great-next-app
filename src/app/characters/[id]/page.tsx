@@ -1,33 +1,32 @@
-'use cache'
 import Link from "next/link";
 import type { Character } from "../page";
 import BackButton from "@/components/BackButton";
 import PageTitle from "@/components/PageTitle";
+import CharacterDetails from './CharacterDetails'
+import { Suspense } from "react";
+
+const fetchCharacterById = async (id) => {
+    'use cache'
+    const characterById = await fetch(`https://swapi.dev/api/people/${id}/`);
+    return characterById.json();
+}
+
+
+
 export default async function CharacterByIdPage({params}) {
   const { id } = await params;
-  const characterById = await fetch(`https://swapi.dev/api/people/${id}/`);
-  const {name, height, mass, starships} : Character = await characterById.json();
+  const characterById = fetchCharacterById(id);
+
+
   return (
         <div className="container mx-auto">
-            <PageTitle title={`Character: ${name}`} />
+            <PageTitle title={`Character Detail`} />
            <div>
             <BackButton />
            </div>
-           <div><span>height: {height}</span></div>
-           <div><span>mass: {mass}</span></div>
-           <div>Vehicles:</div>
-           <ul>
-            {starships.map((starship) => {
-                const starshipId = starship.split('/')[5]
-                return (
-                    <li key={starship}>
-                        <Link  href={`/starships/${starshipId}`}>
-                            {starshipId}
-                        </Link>
-                    </li>
-            )
-})}
-           </ul>
+           <Suspense fallback={<div>Loading...</div>}>
+             <CharacterDetails characterPromise={characterById} />
+           </Suspense> 
         </div>
   );
 }
