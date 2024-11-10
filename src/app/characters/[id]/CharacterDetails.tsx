@@ -1,37 +1,47 @@
 'use cache'
 import React, { Suspense } from 'react'
 import StarShipCards from '../StarShipCard';
+import { Character } from '../page';
 
-const fetchStarShip = async (starship) => {
-    const starShip = await fetch(starship);
-    return starShip.json();
-}
-const fetchStarShips = async (starshipsArray) => {
-    const promises = []
-    for (const starship of starshipsArray) {
-        promises.push(fetchStarShip(starship));
-    }
-    return Promise.all(promises);
+export interface Starship {
+  name: string;
+  model: string;
 }
 
-const CharacterDetails = async ({characterPromise}) => {
-    const {name, height, mass, starships} = await characterPromise;
+const fetchStarShip = async (starshipUrl: string) => {
+  const starShip = await fetch(starshipUrl);
+  return starShip.json();
+}
+const fetchStarShips = async (starshipsUrlArray: string[]): Promise<Starship[]> => {
+  const promises = []
+  for (const starshipUrl of starshipsUrlArray) {
+    promises.push(fetchStarShip(starshipUrl));
+  }
+  return Promise.all(promises);
+}
 
-    const starShipsPromise = fetchStarShips(starships);
+interface CharacterDetailsProps {
+  characterPromise: Promise<Character>
+}
 
-    return (
-        <div>
-             <div><span className="font-bold">name: {name}</span></div>
-            <div><span>height: {height}</span></div>
-           <div><span>mass: {mass}</span></div>
-           <div>Vehicles:</div>
-           <div>
-                <Suspense fallback={<div>Loading...</div>}>
-                    <StarShipCards starShipsPromise={starShipsPromise} />
-                </Suspense>
-           </div>
-        </div>
-    )
+const CharacterDetails = async ({ characterPromise }: CharacterDetailsProps) => {
+  const { name, height, mass, starships } = await characterPromise;
+
+  const starShipsPromise = fetchStarShips(starships);
+
+  return (
+    <div>
+      <div><span className="font-bold">name: {name}</span></div>
+      <div><span>height: {height}</span></div>
+      <div><span>mass: {mass}</span></div>
+      <div>Vehicles:</div>
+      <div>
+        <Suspense fallback={<div>Loading...</div>}>
+          <StarShipCards starShipsPromise={starShipsPromise} />
+        </Suspense>
+      </div>
+    </div>
+  )
 }
 
 export default CharacterDetails
