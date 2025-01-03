@@ -4,10 +4,11 @@ import BackButton from "@/components/BackButton";
 import PageTitle from "@/components/PageTitle";
 import CharacterDetails from './CharacterDetails'
 import { Suspense } from "react";
+import { API_ROOT } from '@/app/constants'
 
 const fetchCharacterById = async (id) => {
   'use cache'
-  const characterById = await fetch(`https://swapi.py4e.com/api/people/${id}/`);
+  const characterById = await fetch(`${API_ROOT}/people/${id}/`);
   return characterById.json();
 }
 

@@ -2,6 +2,7 @@
 import { Suspense } from "react";
 import Characters from "./Characters";
 import PageTitle from "@/components/PageTitle";
+import { API_ROOT } from '@/app/constants'
 
 export interface Character {
   name: string;
@@ -15,8 +16,7 @@ export interface CharacterApiResponse {
 }
 
 const fetchPeopleData = async () => {
-  const people = await fetch("https://swapi.py4e.com/api/people/");
-  console.log('XXX', people)
+  const people = await fetch(`${API_ROOT}/people/`);
   return people.json();
 }
 export default async function GreetingsPage() {
