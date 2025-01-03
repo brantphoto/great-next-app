@@ -1,4 +1,3 @@
-'use cache'
 
 import { Suspense } from "react";
 import Characters from "./Characters";
@@ -16,7 +15,8 @@ export interface CharacterApiResponse {
 }
 
 const fetchPeopleData = async () => {
-  const people = await fetch("https://swapi.dev/api/people/");
+  const people = await fetch("https://swapi.py4e.com/api/people/");
+  console.log('XXX', people)
   return people.json();
 }
 export default async function GreetingsPage() {
