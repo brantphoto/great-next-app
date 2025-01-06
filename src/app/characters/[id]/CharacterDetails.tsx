@@ -6,6 +6,7 @@ import { Character } from '../page';
 export interface Starship {
   name: string;
   model: string;
+  url: string;
 }
 
 const fetchStarShip = async (starshipUrl: string) => {
