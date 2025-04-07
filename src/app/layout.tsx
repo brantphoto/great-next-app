@@ -3,16 +3,16 @@ import localFont from "next/font/local";
 import "./globals.css";
 import Link from "next/link";
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
+// const geistSans = localFont({
+//   src: "./fonts/GeistVF.woff",
+//   variable: "--font-geist-sans",
+//   weight: "100 900",
+// });
+// const geistMono = localFont({
+//   src: "./fonts/GeistMonoVF.woff",
+//   variable: "--font-geist-mono",
+//   weight: "100 900",
+// });
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -27,28 +27,25 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         style={{
-          backgroundColor: 'teal',
           display: 'flex',
           flexDirection: 'column'
         }}
       >
         <div style={{
           height: 60,
-          backgroundColor: 'white'
         }}>
         </div>
         <div style={{
           display: 'flex',
         }}>
           <div style={{
-            backgroundColor: 'white',
-            color: 'teal',
             width: '200px'
           }}>
             <div>
-              <Link href="/characters">
+              <Link
+                className="rounded-base border-border bg-main text-main-foreground w500:text-sm inline-block border-2 px-3 py-1 text-base no-underline"
+                href="/characters">
                 Characters
               </Link>
             </div>
