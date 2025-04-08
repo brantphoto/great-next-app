@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import Link from "next/link";
+import { NavigationMenu, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, navigationMenuTriggerStyle } from "@/components/ui/navigation-menu";
 
 // const geistSans = localFont({
 //   src: "./fonts/GeistVF.woff",
@@ -29,37 +30,31 @@ export default function RootLayout({
       <body
         style={{
           display: 'flex',
-          flexDirection: 'column'
+          flexDirection: 'column',
+          width: '100%',
         }}
       >
         <div style={{
-          height: 60,
-        }}>
-        </div>
-        <div style={{
           display: 'flex',
+          width: '100%',
+          height: '100%',
+          flexDirection: 'column'
         }}>
-          <div style={{
-            width: '200px'
-          }}>
-            <div>
-              <Link
-                className="rounded-base border-border bg-main text-main-foreground w500:text-sm inline-block border-2 px-3 py-1 text-base no-underline"
-                href="/characters">
-                Characters
-              </Link>
-            </div>
-            <div>
-              <Link href="/starships">
-                Starships
-              </Link>
-            </div>
+          <div style={{ height: '80px', backgroundColor: 'var(--color-main' }}>
+            <Link
+              href="/characters">
+              Characters
+            </Link>
+            <Link
+              href="/starships">
+              Starships
+            </Link>
           </div>
           <div>
             {children}
           </div>
         </div>
       </body>
-    </html>
+    </html >
   );
 }
