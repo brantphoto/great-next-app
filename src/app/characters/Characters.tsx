@@ -1,33 +1,27 @@
 'use client'
 import { useRouter } from 'next/navigation';
-import type {CharacterApiResponse} from './page'
+import type { CharacterApiResponse } from './page'
 import { use } from 'react';
+import { Button } from '@/components/ui/button';
 
 interface CharactersProps {
-    peopleData: Promise<CharacterApiResponse>;
+  peopleData: Promise<CharacterApiResponse>;
 }
-export default function Characters ({peopleData}: CharactersProps) {
-    const { results } = use(peopleData);
-    const router = useRouter();
-    const style = {
-        border: '2px solid black',
-        borderRadius: '10px',
-        padding: '10px',
-        margin: '10px',
-        maxWidth: '300px',
-    }
+export default function Characters({ peopleData }: CharactersProps) {
+  const { results } = use(peopleData);
+  const router = useRouter();
 
-    return (
-        <>
-            {results.map((person, index) => (
-                <div key={person.name} style={style}>
-                    <button style={{width: '100%'}} onClick={() => {
-                        router.push(`/characters/${index + 1}`);
-                    }}  >
-                        {person.name}
-                    </button>
-                </div>
-            ))}
-        </>
-    )
+  return (
+    <>
+      {results.map((person, index) => (
+        <div key={person.name}>
+          <Button className="mb-2" onClick={() => {
+            router.push(`/characters/${index + 1}`);
+          }}  >
+            {person.name}
+          </Button>
+        </div>
+      ))}
+    </>
+  )
 }

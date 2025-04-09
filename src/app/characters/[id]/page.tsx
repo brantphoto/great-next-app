@@ -1,8 +1,7 @@
-import BackButton from "@/components/BackButton";
-import PageTitle from "@/components/PageTitle";
 import CharacterDetails from './CharacterDetails'
 import { Suspense } from "react";
 import { API_ROOT } from '@/app/constants'
+import { BreadcrumbNav } from "@/components/breadcrumb-nav";
 
 interface CharacterByIdPageProps {
   params: Promise<{ id: string }>;
@@ -17,13 +16,15 @@ const fetchCharacterById = async (id: string) => {
 export default async function CharacterByIdPage({ params }: CharacterByIdPageProps) {
   const { id } = await params;
   const characterById = fetchCharacterById(id);
+  const character = await characterById;
 
   return (
     <div className="container mx-auto">
-      <PageTitle title={`Character Detail`} />
-      <div>
-        <BackButton />
-      </div>
+      <BreadcrumbNav items={[
+        { label: "Home", href: "/" },
+        { label: "Characters", href: "/characters" },
+        { label: character.name, isCurrentPage: true }
+      ]} />
       <Suspense fallback={<div>Loading...</div>}>
         <CharacterDetails characterPromise={characterById} />
       </Suspense>

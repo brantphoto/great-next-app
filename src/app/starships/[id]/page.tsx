@@ -1,8 +1,6 @@
 'use cache'
-
-import BackButton from "@/components/BackButton";
-import PageTitle from "@/components/PageTitle";
 import { API_ROOT } from '@/app/constants'
+import { BreadcrumbNav } from "@/components/breadcrumb-nav";
 
 interface StarshipByIdPageProps {
   params: Promise<{ id: string }>
@@ -10,12 +8,15 @@ interface StarshipByIdPageProps {
 
 export default async function StarshipByIdPage({ params }: StarshipByIdPageProps) {
   const { id } = await params;
-  const characterById = await fetch(`${API_ROOT}/starships/${id}/`);
-  const { name } = await characterById.json();
+  const starshipById = await fetch(`${API_ROOT}/starships/${id}/`);
+  const starship = await starshipById.json();
   return (
     <div>
-      <PageTitle title={`Starship: ${name}`} />
-      <BackButton />
+      <BreadcrumbNav items={[
+        { label: "Home", href: "/" },
+        { label: "Starships", href: "/starships" },
+        { label: starship.name, isCurrentPage: true }
+      ]} />
     </div>
   )
 }

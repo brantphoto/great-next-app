@@ -1,19 +1,6 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
 import "./globals.css";
 import Link from "next/link";
-import { NavigationMenu, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, navigationMenuTriggerStyle } from "@/components/ui/navigation-menu";
-
-// const geistSans = localFont({
-//   src: "./fonts/GeistVF.woff",
-//   variable: "--font-geist-sans",
-//   weight: "100 900",
-// });
-// const geistMono = localFont({
-//   src: "./fonts/GeistMonoVF.woff",
-//   variable: "--font-geist-mono",
-//   weight: "100 900",
-// });
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -32,26 +19,40 @@ export default function RootLayout({
           display: 'flex',
           flexDirection: 'column',
           width: '100%',
+          minHeight: '100vh',
         }}
       >
         <div style={{
           display: 'flex',
           width: '100%',
           height: '100%',
-          flexDirection: 'column'
+          minHeight: '100vh',
         }}>
-          <div style={{ height: '80px', backgroundColor: 'var(--color-main' }}>
+          <div style={{ 
+            width: '250px', 
+            backgroundColor: 'var(--color-main)',
+            padding: '1rem',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '1rem'
+          }}>
             <Link
-              href="/characters">
+              href="/characters"
+              className="text-white hover:text-gray-200 text-lg"
+            >
               Characters
             </Link>
             <Link
-              href="/starships">
+              href="/starships"
+              className="text-white hover:text-gray-200 text-lg"
+            >
               Starships
             </Link>
           </div>
-          <div>
-            {children}
+          <div className="flex-1">
+            <div className="max-w-7xl mx-auto px-4 w-full">
+              {children}
+            </div>
           </div>
         </div>
       </body>
