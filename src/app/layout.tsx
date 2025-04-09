@@ -1,18 +1,6 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
 import "./globals.css";
 import Link from "next/link";
-
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -27,42 +15,47 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         style={{
-          backgroundColor: 'teal',
           display: 'flex',
-          flexDirection: 'column'
+          flexDirection: 'column',
+          width: '100%',
+          minHeight: '100vh',
         }}
       >
         <div style={{
-          height: 60,
-          backgroundColor: 'white'
-        }}>
-        </div>
-        <div style={{
           display: 'flex',
+          width: '100%',
+          height: '100%',
+          minHeight: '100vh',
         }}>
-          <div style={{
-            backgroundColor: 'white',
-            color: 'teal',
-            width: '200px'
+          <div style={{ 
+            width: '250px', 
+            backgroundColor: 'var(--color-main)',
+            padding: '1rem',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '1rem'
           }}>
-            <div>
-              <Link href="/characters">
-                Characters
-              </Link>
-            </div>
-            <div>
-              <Link href="/starships">
-                Starships
-              </Link>
-            </div>
+            <Link
+              href="/characters"
+              className="text-white hover:text-gray-200 text-lg"
+            >
+              Characters
+            </Link>
+            <Link
+              href="/starships"
+              className="text-white hover:text-gray-200 text-lg"
+            >
+              Starships
+            </Link>
           </div>
-          <div>
-            {children}
+          <div className="flex-1">
+            <div className="max-w-7xl mx-auto px-4 w-full">
+              {children}
+            </div>
           </div>
         </div>
       </body>
-    </html>
+    </html >
   );
 }

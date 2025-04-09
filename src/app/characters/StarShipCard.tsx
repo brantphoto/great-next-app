@@ -2,6 +2,7 @@
 import React, { use } from 'react';
 import { Starship } from './[id]/CharacterDetails';
 import { useRouter } from 'next/navigation';
+import { Button } from '@/components/ui/button';
 
 interface StarShipCardsProps {
   starShipsPromise: Promise<Starship[]>;
@@ -14,19 +15,23 @@ const StarShipCards: React.FC<StarShipCardsProps> = ({
   const starShips = use<Starship[]>(starShipsPromise) as Starship[];
 
   return (
-    <ol style={{ margin: '20px' }}>
+    <ol className="space-y-2">
       {starShips.map(({ name, model, url }: Starship) => {
-
-        // consider moving to utility
         const splitUrl = url.split('/');
         const id = splitUrl[splitUrl.length - 2]
 
         return (
-          <li key={name} className="starship-card">
-            <button onClick={() => router.push(`/starships/${id}`)}>
-              <h2 className="font-bold">{name}</h2>
-              <p>Model: {model}</p>
-            </button>
+          <li key={name}>
+            <Button 
+              variant="neutral" 
+              className="w-full"
+              onClick={() => router.push(`/starships/${id}`)}
+            >
+              <div className="flex flex-col items-start">
+                <span className="font-bold">{name}</span>
+                <span>{model}</span>
+              </div>
+            </Button>
           </li>
         )
       })}

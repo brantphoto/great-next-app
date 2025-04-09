@@ -2,6 +2,13 @@
 import React, { Suspense } from 'react'
 import StarShipCards from '../StarShipCard';
 import { Character } from '../page';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
 
 export interface Starship {
   name: string;
@@ -31,17 +38,30 @@ const CharacterDetails = async ({ characterPromise }: CharacterDetailsProps) => 
   const starShipsPromise = fetchStarShips(starships);
 
   return (
-    <div>
-      <div><span className="font-bold">name: {name}</span></div>
-      <div><span>height: {height}</span></div>
-      <div><span>mass: {mass}</span></div>
-      <div>Vehicles:</div>
-      <div>
-        <Suspense fallback={<div>Loading...</div>}>
-          <StarShipCards starShipsPromise={starShipsPromise} />
-        </Suspense>
-      </div>
-    </div>
+    <Card className="w-full max-w-2xl">
+      <CardHeader>
+        <CardTitle className="text-2xl">{name}</CardTitle>
+        <CardDescription>Character Details</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <div className="grid gap-4">
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <span className="font-bold">Height:</span> {height} cm
+            </div>
+            <div>
+              <span className="font-bold">Mass:</span> {mass} kg
+            </div>
+          </div>
+          <div>
+            <h3 className="font-bold mb-2">Starships:</h3>
+            <Suspense fallback={<div>Loading starships...</div>}>
+              <StarShipCards starShipsPromise={starShipsPromise} />
+            </Suspense>
+          </div>
+        </div>
+      </CardContent>
+    </Card>
   )
 }
 
