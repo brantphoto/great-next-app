@@ -18,6 +18,7 @@ pnpm dev
 
 Adding 1
 Adding 2
+Adding 3
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
